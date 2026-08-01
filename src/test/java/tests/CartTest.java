@@ -4,10 +4,10 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 import static user.UserFactory.withAdminPermission;
 
-public class ProductsTest extends BaseTest {
+public class CartTest extends BaseTest {
     List<String> goodList =
             List.of("Sauce Labs Bike Light",
                     "Sauce Labs Backpack",
@@ -17,13 +17,18 @@ public class ProductsTest extends BaseTest {
     public void checkGoodsAdded() {
         loginPage.open();
         loginPage.login(withAdminPermission());
-        productsPage.pageIsOpen();
 
         for (String goodName : goodList) {
             productsPage.addToCart(goodName);
         }
+        productsPage.switchToCart();
 
-        assertEquals(productsPage.checkCounterValue(), 3);
-        assertEquals(productsPage.checkCounterColor(), "rgba(226, 35, 26, 1)");
+        assertTrue(cartPage.pageIsOpen());
+        assertEquals(cartPage.getNamePage(), "Your Cart");
+
+        assertFalse(cartPage.getProductsNames().isEmpty());
+        assertEquals(cartPage.getProductsNames().size(), 3);
+        assertTrue(cartPage.getProductsNames().contains("Sauce Labs Bolt T-Shirt"));
+        assertEquals(cartPage.getProductsNames(), goodList);
     }
 }
