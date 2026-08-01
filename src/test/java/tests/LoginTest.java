@@ -3,11 +3,10 @@ package tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.User;
-import utils.PropertyReader;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static user.UserFactory.withAdminPermission;
+import static user.UserFactory.*;
 
 public class LoginTest extends BaseTest {
 
@@ -22,22 +21,17 @@ public class LoginTest extends BaseTest {
 
     @DataProvider()
     public Object[][] loginData() {
-        String userCorrect = PropertyReader.getProperty("saucedemo.user");
-        String userIncorrect = PropertyReader.getProperty("saucedemo.incorrect_user");
-        String userLocked = PropertyReader.getProperty("saucedemo.locked_user");
-        String password = PropertyReader.getProperty("saucedemo.password");
 
         return new Object[][]{
-                {userIncorrect, password, "Epic sadface: Username and password do not match any user in this service"},
-                {userCorrect, "", "Epic sadface: Password is required"},
-                {"", password, "Epic sadface: Username is required"},
-                {userLocked, password, "Epic sadface: Sorry, this user has been locked out."}
+                {withIncorrectAdminPermission(), "Epic sadface: Username and password do not match any user in this service"},
+                {new User("standard_user", ""), "Epic sadface: Password is required"},
+                {new User("", "secret_sauce"), "Epic sadface: Username is required"},
+                {withLockedAdminPermission(), "Epic sadface: Sorry, this user has been locked out."}
         };
     }
 
     @Test(dataProvider = "loginData", description = "Проверка ошибок при неверной авторизации")
-    public void incorrectLogin(String login, String password, String errorMsg) {
-        User user = new User(login, password);
+    public void incorrectLogin(User user, String errorMsg) {
         loginPage.open();
         loginPage.login(user);
 
