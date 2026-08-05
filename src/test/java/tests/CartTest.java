@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static enums.TitleNaming.CART;
 import static org.testng.Assert.*;
 import static user.UserFactory.withAdminPermission;
 
@@ -15,6 +16,7 @@ public class CartTest extends BaseTest {
 
     @Test
     public void checkGoodsAdded() {
+        System.out.println("CartTest.checkGoodsAdded running in thread: " + Thread.currentThread().getName());
         loginPage.open();
         loginPage.login(withAdminPermission());
 
@@ -24,7 +26,7 @@ public class CartTest extends BaseTest {
         productsPage.switchToCart();
 
         assertTrue(cartPage.pageIsOpen());
-        assertEquals(cartPage.getNamePage(), "Your Cart");
+        assertEquals(cartPage.getNamePage(), CART.getDisplayName());
 
         assertFalse(cartPage.getProductsNames().isEmpty());
         assertEquals(cartPage.getProductsNames().size(), 3);

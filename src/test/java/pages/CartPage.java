@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public class CartPage extends BasePage {
     }
 
     public ArrayList<String> getProductsNames() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(itemNames));
+
         List<WebElement> allProductsNames = driver.findElements(itemNames);
         ArrayList<String> names = new ArrayList<>();
 
