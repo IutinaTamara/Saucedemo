@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -13,7 +15,9 @@ public class ProductsTest extends BaseTest {
                     "Sauce Labs Backpack",
                     "Sauce Labs Bolt T-Shirt");
 
+    @Step("Проверяем добавление товаров в корзину")
     @Test
+    @Owner("Tamara Iutina uytinabp@gmail.com")
     public void checkGoodsAdded() {
         System.out.println("ProductsTest.checkGoodsAdded running in thread: " + Thread.currentThread().getName());
         loginPage.open();

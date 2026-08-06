@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,7 +11,6 @@ import java.time.Duration;
 public class BasePage {
     public static final String BASE_URL = PropertyReader.getProperty("saucedemo.url");
     public static final String DATA_TEST_PATTERN = "[data-test='%s']";
-    public static final String TEXT_LOCATOR_PATTERN = "//*[text()='%s']";
     private final By pageName = By.cssSelector(DATA_TEST_PATTERN.formatted("title"));
 
     WebDriver driver;
@@ -21,10 +21,12 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
+    @Step("Открытие страницы")
     public boolean pageIsOpen() {
         return driver.findElement(pageName).isDisplayed();
     }
 
+    @Step("Получение названия страницы")
     public String getNamePage() {
         return driver.findElement(pageName).getText();
     }
