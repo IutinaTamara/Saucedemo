@@ -20,4 +20,11 @@ public class UserFactory {
                 PropertyReader.getProperty("saucedemo.incorrect_user"),
                 PropertyReader.getProperty("saucedemo.password"));
     }
+
+    public static UserInformation withCorrectData() {
+        return new UserInformation(
+                PropertyReader.getProperty("saucedemo.firstName"),
+                PropertyReader.getProperty("saucedemo.lastName"),
+                PropertyReader.getProperty("saucedemo.postalCode"));
+    }
 }

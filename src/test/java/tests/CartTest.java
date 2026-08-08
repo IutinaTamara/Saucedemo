@@ -1,12 +1,11 @@
 package tests;
 
-import io.qameta.allure.Owner;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static enums.TitleNaming.CART;
+import static enums.TitleNaming.*;
 import static org.testng.Assert.*;
 import static user.UserFactory.withAdminPermission;
 
@@ -36,5 +35,21 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductsNames().size(), 3);
         assertTrue(cartPage.getProductsNames().contains("Sauce Labs Bolt T-Shirt"));
         assertEquals(cartPage.getProductsNames(), goodList);
+    }
+
+    @Step("Проверяем переход на страницу с информацией для заказа")
+    @Test
+    @Owner("Tamara Iutina uytinabp@gmail.com")
+    public void switchToInformation() {
+        loginPage.open();
+        loginPage.login(withAdminPermission());
+
+        productsPage.addToCart("Sauce Labs Bike Light");
+        productsPage.switchToCart();
+
+        cartPage.checkOut();
+
+        assertTrue(informationPage.pageIsOpen());
+        assertEquals(informationPage.getNamePage(), CHECKOUT.getDisplayName());
     }
 }

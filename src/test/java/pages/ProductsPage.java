@@ -15,9 +15,10 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Добавление товара в корзину")
-    public void addToCart(final String goodsName) {
+    public ProductsPage addToCart(final String goodsName) {
         By goods = By.xpath(ADD_TO_CART.formatted(goodsName));
         driver.findElement(goods).click();
+        return this;
     }
 
     @Step("Проверяем значение счётчика для корзины")

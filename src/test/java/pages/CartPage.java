@@ -11,6 +11,7 @@ import java.util.List;
 
 public class CartPage extends BasePage {
     private final By itemNames = By.cssSelector(".inventory_item_name");
+    private final By checkBtn = By.xpath("//button[@id='checkout']");
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -27,5 +28,10 @@ public class CartPage extends BasePage {
             names.add(productBlock.getText());
         }
         return names;
+    }
+
+    @Step("Нажимаем кнопку формирования заказа")
+    public void checkOut() {
+        driver.findElement(checkBtn).click();
     }
 }
