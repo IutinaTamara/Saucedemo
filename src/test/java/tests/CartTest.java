@@ -15,7 +15,6 @@ public class CartTest extends BaseTest {
                     "Sauce Labs Backpack",
                     "Sauce Labs Bolt T-Shirt");
 
-    @Step("Проверяем отображение товаров в корзине")
     @Test
     @Owner("Tamara Iutina uytinabp@gmail.com")
     public void checkGoodsAdded() {
@@ -37,7 +36,6 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductsNames(), goodList);
     }
 
-    @Step("Проверяем переход на страницу с информацией для заказа")
     @Test
     @Owner("Tamara Iutina uytinabp@gmail.com")
     public void switchToInformation() {
