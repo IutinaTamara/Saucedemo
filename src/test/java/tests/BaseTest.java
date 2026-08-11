@@ -9,10 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import pages.BasePage;
-import pages.CartPage;
-import pages.LoginPage;
-import pages.ProductsPage;
+import pages.*;
 import utils.TestListener;
 
 import java.time.Duration;
@@ -23,6 +20,9 @@ public class BaseTest {
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    InformationPage informationPage;
+    OverviewPage overviewPage;
+    CompletePage completePage;
 
     @Parameters({"browser"})
     @BeforeMethod
@@ -44,6 +44,9 @@ public class BaseTest {
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
+        informationPage = new InformationPage(driver);
+        overviewPage = new OverviewPage(driver);
+        completePage = new CompletePage(driver);
     }
 
     @Step("Закрытие браузера")
